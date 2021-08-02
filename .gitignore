@@ -1,0 +1,6 @@
+.idea
+media
+logs
+uwsgi.ini
+db.sqlite3
+venv

@@ -1,95 +1,66 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 {% load static %}
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录页面</title>
-    <link rel="shortcut icon" href="/static/image/logo.ico">
-    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/css/custom.css" rel="stylesheet">
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/layui.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static  'css/index.css' %}"/>
-    <!--<style>-->
-    <!--    .inner{-->
-    <!--        border:1px solid red;-->
-    <!--    }-->
-    <!--    .inner_black{-->
-    <!--        border:1px solid black;-->
-    <!--    }-->
-    <!--</style>-->
-    <style>
-        html,body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    
-        body {
-            background-image: url({% static 'image/backgroud.jpg' %});
-            display: flex;
-            align-items: center; /*定义body的元素垂直居中*/
-            justify-content: center; /*定义body的里的元素水平居中*/
-        }
-        .content {
-            width: 300px;
-            height: 300px;
-            /*background: white;        */
-        }
-    </style>
-    <script>if (window.top !== window.self) {
-        window.top.location = window.location;
-    }</script>
-</head>
-<body class="gray-bg">
-    <div class="container">
-        <div class="row">
-            <div class="middle-box text-center loginscreen animated fadeInDown">
-                <div class="content">
-                            <blockquote class="layui-elem-quote layui-text col-lg-12 col-xs-12">
-                                欢迎登录图云客户端！
-                            </blockquote>
-                        
-                        <div id="error_header" class=" col-lg-12 col-xs-12" style="color: #eb7350"></div>
-                        <div id="error_msg_login" class=" col-lg-12 col-xs-12" style="color: #eb7350"></div>
-                        <div class="">
-                            <form class="m-t inner_black col-lg-12 col-xs-12 col-lg-12 col-xs-12" id="loginForm">
-                                
-                                {% csrf_token %}
-                                <div class="form-group col-lg-12 col-xs-12">
-                                    <input type="text" class="form-control" name="username" placeholder="请输入用户名" required="">
+{% block title %}
+    - 图云登录界面 -
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/admin.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/login.css' %}" media="all">
+{% endblock %}
+{% block content1 %}
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login"
+         style="display: none;background: #F2F2F2;">
+        <div class="layadmin-user-login-main">
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <h2>- PICTURE CLOUD -</h2>
+                <h3>- 登录界面 -</h3>
+            </div>
+            <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                <form id="loginForm">
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-username"
+                               for="LAY-user-login-username"></label>
+                        <input type="text" name="username" id="LAY-user-login-username" lay-verify="required"
+                               placeholder="用户名" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                               for="LAY-user-login-password"></label>
+                        <input type="password" name="password" id="LAY-user-login-password"
+                               lay-verify="required"
+                               placeholder="密码" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-xs7">
+                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
+                                       for="LAY-user-login-vercode"></label>
+                                <input type="text" name="vercode" id="LAY-user-login-vercode"
+                                       lay-verify="required"
+                                       placeholder="图形验证码" class="layui-input">
+                            </div>
+                            <div class="layui-col-xs5">
+                                <div style="margin-left: 10px;">
+                                    <img src="{% url 'user:Getcode' %}"
+                                         class="layadmin-user-login-codeimg"
+                                         onclick="this.src=this.src+'?'+Math.random()" id="code_onclick">
                                 </div>
-                                
-                                <div class="form-group col-lg-12 col-xs-12">
-                                    <input type="password" class="form-control" name="password" placeholder="请输入密码" required="">
-                                </div>
-                    
-                                <input type="button" class="btn btn-primary block full-width m-b col-lg-12 col-xs-12" id="login-form" value="登录">
-                                <p class="text-muted text-center col-lg-12 col-xs-12"><small>还没有账户？</small><a href="{% url 'MyApp:regist' %}">点此注册</a>
-                                </p>
-                    
-                            </form>
+                            </div>
                         </div>
-                </div>
+                    </div>
+                    <div class="layui-form-item" style="margin-bottom: 20px;">
+                        <a href="" class="layadmin-user-jump-change layadmin-link"
+                           style="margin-top: 7px;">忘记密码？</a>
+                    </div>
+                    <div class="layui-form-item">
+                        <input type="button" class="layui-btn layui-btn-fluid" id="login-form" value="登入">
+                    </div>
+                </form>
+                <a href="{% url 'user:regist' %}" class="layadmin-user-jump-change layadmin-link layui-hide-xs">还没有账号，去注册</a>
             </div>
         </div>
     </div>
-    
-<script src="/static/js/jquery.min.js?"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/layui.js"></script>
-<script src="/static/js/login_regist.js"></script>
-<script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-        var element = layui.element;
-    });
-</script>
-</body>
-
-</html>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'js/tuyun/login.js' %}"></script>
+{% endblock %}

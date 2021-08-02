@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    - 图云激活界面 -
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/admin.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/login.css' %}" media="all">
+{% endblock %}
+{% block content1 %}
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login"
+         style="display: none;background: #F2F2F2;">
+        <div class="layadmin-user-login-main">
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <h2>- PICTURE CLOUD -</h2>
+                <h3>- 激活界面 -</h3>
+                <div style="height: 60px;"></div>
+                <h3>提示信息：{{ message }}</h3>
+                <div style="height: 20px;"></div>
+                {% if flag %}
+                    <a href="{{ BASE_URL }}/login">点此跳转登录界面</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'js/tuyun/login.js' %}"></script>
+{% endblock %}

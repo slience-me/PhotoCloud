@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <blockquote class="layui-elem-quote layui-text">
-        提示：该网站为图云网站，仅为个人学习的网站，无任何盈利目的！ 朋友间共享的网页，免费提供。
-    </blockquote>
-    <blockquote class="layui-elem-quote layui-text">
-        使用提示：选择一个你喜欢的上传方式在左侧导航栏点击进入！
-    </blockquote>
+{% block content1 %}
+    <h1>云上的图片,你我共享</h1>
+    <s> </s>
+    <br/> <br/> <br/>
+    <div class="container">
+        <button type="button" class="fa-btn btn-1 btn-1e " id="img-multi">选择多文件</button>
+        <br class="show"/><br class="show"/><br class="show"/>
+    </div>
 
+    <div class="header_arrow">
+        <a href="#arrow" class="scroll"><span> </span></a>
+    </div>
 {% endblock %}
-
-
+{% block content2 %}
+    <div class="introduct" id="arrow">
+        <div class="container">
+            <h2>为什么把图片存放在我们这儿</h2>
+            <span> </span>
+            <p>我们有一套完整的图片存储体系，而且我们图片加载速度极快，当然我们并不是提供方，只不过我们会给您提供一个方便快捷的存储空间。</p>
+        </div>
+    </div>
+    <div class="create">
+        <div class="container">
+            <a href="#" id="back-to-top" class="fa-btn btn-1 btn-1e">我要上传</a>
+            <button type="button" class="layui-btn " style="display:none;" id="testListAction">开始上传</button>
+        </div>
+    </div>
+{% endblock %}

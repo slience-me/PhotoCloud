@@ -1,78 +1,112 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>个人中心：可以修改您的个人信息</legend>
-    </fieldset>
+{% block title %}
+    - 个人中心 -
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/admin.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'css/layuiadmin/login.css' %}" media="all">
+{% endblock %}
+{% block content1 %}
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login"
+         style="display: none;background: #F2F2F2;">
+        <div class="layadmin-user-login-main">
+            <h2>- PICTURE CLOUD -</h2>
+            <h4>- 个人中心的功能 -</h4>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend></legend>
+            </fieldset>
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn" id="prefile">个人信息</button>
+                <button type="button" class="layui-btn" id="changeUsername">修改密码</button>
+            </div>
+            <form id="updateForm" class="layui-form" action="{% url 'user:Center' %}" style="display:none">
+                <div class="layadmin-user-login-box layadmin-user-login-header">
+                    <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
+                         style="padding: 20px 30px 0 0;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="realname" lay-verify="required" autocomplete="off"
+                                       placeholder="请输入用户名" value="{{ name }}"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别</label>
+                            {% if not sex %}
+                                <input type="radio" name="sex" value="男" title="男" checked="">
+                                <input type="radio" name="sex" value="女" title="女">
+                            {% endif %}
+                            {% if sex == '男' %}
+                                <input type="radio" name="sex" value="男" title="男" checked="">
+                                <input type="radio" name="sex" value="女" title="女">
+                            {% endif %}
+                            {% if sex == '女' %}
+                                <input type="radio" name="sex" value="男" title="男">
+                                <input type="radio" name="sex" value="女" title="女" checked="">
+                            {% endif %}
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出生</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="birthday" id="date" lay-verify="date" value="{{ birthday }}"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="telephone" lay-verify="required|phone" autocomplete="off"
+                                       value="{{ telephone }}"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮件</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off"
+                                       class="layui-input"
+                                       value="{{ email }}">
+                            </div>
+                        </div>
 
-    <form id="updateForm" class="layui-form" action="{% url 'MyApp:Center' %}">
-        <div class="layui-form-item">
-            <label class="layui-form-label">真实姓名</label>
-            <div class="layui-input-block">
-                <input type="text" name="realname" lay-verify="title" autocomplete="off" value="{{ name }}"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">单选框</label>
-            {% if not sex %}
-                <input type="radio" name="sex" value="男" title="男" checked="">
-                <input type="radio" name="sex" value="女" title="女">
-            {% endif %}
-            {% if sex == '男' %}
-                <input type="radio" name="sex" value="男" title="男" checked="">
-                <input type="radio" name="sex" value="女" title="女">
-            {% endif %}
-            {% if sex == '女' %}
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女" checked="">
-            {% endif %}
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">出生日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="birthday" id="date" lay-verify="date" value="{{ birthday }}"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">手机</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="telephone" lay-verify="required|phone" autocomplete="off" value="{{ telephone }}"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">邮件地址</label>
-            <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input"
-                       value="{{ email }}">
-            </div>
-        </div>
+                        <div class="layui-form-item">
+                            <div>
+                                <input type="button" class="layui-btn" id="update_form" value="立即提交">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="updatePwdForm" class="layui-form" action="{% url 'user:Pwd' %}" style="display:none">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="password" lay-verify="title" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">再次输入</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="password_a" lay-verify="title" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
 
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <input type="button" class="layui-btn" id="update_form" value="立即提交">
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="button" class="layui-btn" id="updatePwd_form" value="立即提交">
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
-    </form>
+    </div>
 
 {% endblock %}
-
 {% block script %}
-    <script type="text/javascript" src="/static/js/update.js"></script>
-        <script>
-            layui.use(['form', 'laydate'], function () {
-                var form = layui.form
-                    , laydate = layui.laydate;
-
-                //日期
-                laydate.render({
-                    elem: '#date'
-                });
-
-            });
-        </script>
+    <script type="text/javascript" src="{% static 'js/tuyun/update.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tuyun/prefile.js' %}"></script>
 {% endblock %}

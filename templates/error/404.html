@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    - 404界面 -
+{% endblock %}
+{% block content1 %}
+    <div class="layadmin-user-login layadmin-user-display-show col-lg-12 col-xs-12" id="LAY-user-login"
+         style="background: #F2F2F2;background-image: url('{% static 'img/error/404.png' %}'); background-repeat: repeat-y;">
+        <div class="layadmin-user-login-main">
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <div style="height: 580px;">
+                    <div style="height: 450px;"></div>
+                    <h3><a href="{% url 'tuyun:index' %}">返回主页</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

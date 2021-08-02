@@ -16,7 +16,8 @@ from pathlib import Path
 from django.conf import global_settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_URL = "https://tuyun.slienceme.xyz"
+# BASE_URL = "https://tuyun.slienceme.xyz"
+BASE_URL = "http://127.0.0.1:8000"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Demo.apps.DemoConfig',
+    'user.apps.UserConfig',
+    'container.apps.ContainerConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
+    'user.mymiddleware.SimpleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -152,3 +155,11 @@ EMAIL_HOST_USER = 'slience_me@foxmail.com'
 EMAIL_HOST_PASSWORD = 'iqaebvoscblmecej'
 # 是否使用安全传输
 EMAIL_USE_TLS = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+FONT_PATH = "static/fonts/Ubuntu-B.ttf"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# 注册有效期天数
+CONFIRM_DAYS = 7
