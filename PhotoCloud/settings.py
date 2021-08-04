@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.UserConfig',
     'container.apps.ContainerConfig',
+    'admin.apps.AdminConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'user.mymiddleware.SimpleMiddleware',
+    'admin.adminmiddleware.AdminMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -88,8 +89,18 @@ WSGI_APPLICATION = 'PhotoCloud.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'tuyun',
+#         'USER': 'root',
+#         'PASSWORD': 'xian123',
+#         'PORT': '3306'
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'tuyun',
 #         'USER': 'tuyun',
-#         'PASSWORD': '8eh44kxp8G7sx8f8',
+#         'PASSWORD': 'ycDKDa3ZazthBbSF',
 #         'HOST': '0.0.0.0',
 #         'PORT': '3306',
 #     }

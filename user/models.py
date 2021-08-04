@@ -11,8 +11,6 @@ class User(models.Model):
   telephone = models.CharField(verbose_name='电话', max_length=11, null=True, default=None)
   email = models.EmailField(verbose_name='邮件地址', max_length=100, null=False, default=None,unique=True)
   status = models.CharField(verbose_name='激活状态', max_length=1, null=True, default=None)
-  avatar = models.ImageField(verbose_name='头像路径', upload_to='media/user/avatar', max_length=200, null=True,
-                             default=None)
   date_joined = models.DateTimeField(verbose_name='注册时间', null=True, default=None)
 
   class Meta:

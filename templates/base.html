@@ -30,7 +30,10 @@
                 <ul>
                     <li class="Selected"><a href="{% url 'tuyun:index' %}">Home</a></li>
                     <li><a href="{% url 'tuyun:common' %}" class="scroll">图云总览</a></li>
-                    {% if not request.session.usernow %}
+                    {% if request.session.is_login_admin %}
+                        <li><a href="{% url 'App_admin:index' %}" class="scroll">人员管理</a></li>
+                    {% endif %}
+                    {% if not request.session.usernow and not request.session.is_login_admin %}
                         <li><a href="{% url 'user:Login' %}" class="scroll">登录</a></li>
                         <li><a href="{% url 'user:regist' %}" class="scroll">注册</a></li>
                     {% endif %}
@@ -38,6 +41,9 @@
                         <li><a href="{% url 'user:History' %}" class="scroll">上传历史</a></li>
                         <li><a href="{% url 'user:Center' %}" class="scroll">个人中心</a></li>
                         <li><a href="{% url 'user:Logout' %}" class="scroll">退出登录</a></li>
+                    {% endif %}
+                    {% if request.session.is_login_admin %}
+                        <li><a href="{% url 'App_admin:Logout' %}" class="scroll">退出登录</a></li>
                     {% endif %}
                 </ul>
             </nav>

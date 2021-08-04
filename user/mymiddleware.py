@@ -23,3 +23,5 @@ class SimpleMiddleware(MiddlewareMixin):
                 pass
             else:
                 return HttpResponseRedirect('/login')
+
+

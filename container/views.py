@@ -2,6 +2,8 @@ import hashlib
 import json
 import os
 from datetime import datetime
+
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from PhotoCloud.settings import BASE_DIR, BASE_URL
@@ -85,14 +87,32 @@ def Show(request):
         res = {'msg': '接口方法错误', 'code': 1}
         return JsonResponse(res)
 
-
-def Common(request):
+def get_common_imglist():
     img_list = []
     for root, dirs, files in os.walk(os.path.join(BASE_DIR, 'media', 'image', '0')):
         for file in files:
             fileDir = str(BASE_URL) + '/media/image/0/' + file
             img_list.append(fileDir)
-    return render(request, 'tuyun/common.html', {'img_list': img_list})
+    return img_list
+
+
+def get_img_list(request):
+    page = request.GET.get('page', 1)
+    limit = request.GET.get('limit', 15)
+    img_list = get_common_imglist()
+    paginator = Paginator(img_list, limit)
+    data_page = list(paginator.page(page))
+    data = {
+        "code": 0,
+        "msg": "",
+        "count": paginator.count,
+        "data": data_page
+    }
+    return JsonResponse(data)
+
+
+def Common(request):
+    return render(request, 'tuyun/common.html')
 
 
 def page_not_found(request, exception, template_name='error/404.html'):

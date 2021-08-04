@@ -28,6 +28,7 @@ urlpatterns = [
   path('history', History, name='History'),
   # 数据
   path('data', get_img_data, name='data'),
+  # 公共数据
   # 删除
   path('remove', Remove, name='file_remove'),
   # 修改密码

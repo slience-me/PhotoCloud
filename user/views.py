@@ -3,12 +3,10 @@ import hashlib
 import os
 import random
 from io import BytesIO
-
 from PIL import Image, ImageFont
 from PIL.ImageDraw import ImageDraw
 from django.conf import settings
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator
 from django.http import HttpResponse
@@ -147,6 +145,7 @@ class Login(View):
                             else:
                                 request.session['is_login'] = True
                                 request.session['usernow'] = user[0].username
+                                request.session.set_expiry(3 * 24 * 60 * 60)
                                 print('登录成功')
                                 data = {
                                     'code': 0,
@@ -202,14 +201,9 @@ def State(request):
     if request.is_ajax:
         try:
             username = request.session['usernow']
-            user = User.objects.filter(username=username)
-            avatar = user.values('avatar')
-            if avatar:
-                avatar = avatar[0].get('avatar')
             print(username)
         except:
             username = ''
-            avatar = ''
         data = {
             'user': username,
         }
@@ -247,58 +241,14 @@ def GetCode(request):
     return HttpResponse(fp.getvalue(), content_type="image/png")
 
 
-def Test(request):
-    return render(request, 'user/history.html')
-
-
-def pagination_data(paginator, page, is_paginated):
-    """分页详细数据"""
-    if not is_paginated:
-        return {}
-
-    left, right = [], []
-    left_has_more, right_has_more = False, False
-    first, last = False, False
-
-    page_number = page.number
-    total_pages = paginator.num_pages
-    page_range = paginator.page_range
-
-    if page_number != total_pages:
-        right = page_range[page_number:page_number + 2]
-        if right[-1] < total_pages - 1:
-            right_has_more = True
-        if right[-1] < total_pages:
-            last = True
-    if page_number != 1:
-        left = page_range[(page_number - 3) if (page_number - 3) > 0 else 0:page_number - 1]
-        if left[0] > 2:
-            left_has_more = True
-        if left[0] > 1:
-            first = True
-
-    data = {
-        'left': left,
-        'right': right,
-        'left_has_more': left_has_more,
-        'right_has_more': right_has_more,
-        'first': first,
-        'last': last,
-    }
-
-    return data
-
-
 def get_img_data(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 10)
     user = request.session['usernow']
     uid = User.objects.filter(username=user).values()[0].get('uid')
-    queryset1 = File.objects.filter(user_id=uid, removed=0).values().order_by('-upload_date')
-    json_list = list(queryset1)
-    paginator = Paginator(json_list, limit)
-    data_page = paginator.page(page)
-    data_page = list(data_page)
+    queryset = list(File.objects.filter(user_id=uid, removed=0).values().order_by('-upload_date'))
+    paginator = Paginator(queryset, limit)
+    data_page = list(paginator.page(page))
     data = {
         "code": 0
         , "msg": ""
@@ -332,7 +282,7 @@ def Remove(request):
     except Exception:
         print('删除失败！', pk)
         data = {
-            "code": 0,
+            "code": 1,
             "msg": "删除失败!"
         }
     # 返回
@@ -498,3 +448,4 @@ def Confirm(request):
         message = '激活成功，请登录！'
         flag = True
         return render(request, 'user/confirm.html', locals())
+

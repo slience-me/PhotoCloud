@@ -17,5 +17,6 @@ urlpatterns = [
     path('index', Index, name='index'),
     path('common', Common, name='common'),
     path('show', Show, name='Upload'),
+    path('getimg', get_img_list, name='img_list'),
 ]
 

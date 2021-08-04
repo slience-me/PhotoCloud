@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    - 图云管理员登录界面 -
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/layuiadmin/admin.css" media="all">
+    <link rel="stylesheet" href="/static/css/layuiadmin/login.css" media="all">
+{% endblock %}
+{% block content1 %}
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login"
+         style="display: none;background: #F2F2F2;">
+        <div class="layadmin-user-login-main">
+            <div class="layadmin-user-login-box layadmin-user-login-header">
+                <h2>- PICTURE CLOUD -</h2>
+                <h3>- 管理员登录界面 -</h3>
+            </div>
+            <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                <form id="loginForm">
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-username"
+                               for="LAY-user-login-username"></label>
+                        <input type="text" name="username" id="LAY-user-login-username" lay-verify="required"
+                               placeholder="用户名" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                               for="LAY-user-login-password"></label>
+                        <input type="password" name="password" id="LAY-user-login-password"
+                               lay-verify="required"
+                               placeholder="密码" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-xs7">
+                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
+                                       for="LAY-user-login-vercode"></label>
+                                <input type="text" name="vercode" id="LAY-user-login-vercode"
+                                       lay-verify="required"
+                                       placeholder="图形验证码" class="layui-input">
+                            </div>
+                            <div class="layui-col-xs5">
+                                <div style="margin-left: 10px;">
+                                    <img src="{% url 'user:Getcode' %}"
+                                         class="layadmin-user-login-codeimg"
+                                         onclick="this.src=this.src+'?'+Math.random()" id="code_onclick">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="margin-bottom: 20px;">
+                        <a href="" class="layadmin-user-jump-change layadmin-link"
+                           style="margin-top: 7px;">忘记密码？</a>
+                    </div>
+                    <div class="layui-form-item">
+                        <input type="button" class="layui-btn layui-btn-fluid" id="login-form" value="登入">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="/static/js/tuyun/admin/login.js"></script>
+{% endblock %}
