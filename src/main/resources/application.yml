@@ -1,0 +1,38 @@
+server:
+  port: 7080
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      # 上传文件大小设置
+      enabled: true #是否启用http上传处理
+      max-request-size: 50MB #最大请求文件的大小
+      max-file-size: 50MB #设置单个文件最大长度
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  jmx:
+    enabled: false
+  mail:
+    host: smtp.qq.com
+    username: slience_me@foxmail.com
+    password: iqaebvoscblmecej
+# wms-dao/target/classes/mapper/AdminRoleMapper.xml
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: xyz.slienceme.pojos
+  configuration:
+    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  file:
+    path: /www/wwwroot/tuyun/logs
+
