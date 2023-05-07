@@ -1,9 +1,11 @@
+custom:
+  system: linux
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///db_wms?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true&autoReconnect=true
-    username: root
-    password: ycDKDa3ZazthBbSF
+    url: jdbc:mysql:///db_photocloud?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true&autoReconnect=true
+    username: db_photocloud
+    password: T8ydGikeY7e7iTtN
     hikari:
       connection-test-query: SELECT 1
       minimum-idle: 10
@@ -17,4 +19,4 @@ spring:
     activate:
       on-profile: pro
   path:
-    url: http://101.43.170.68:8081
+    url: https://tuyun.slienceme.xyz  # http://101.43.170.68:7080

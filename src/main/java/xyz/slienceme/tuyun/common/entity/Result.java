@@ -68,6 +68,7 @@ public class Result<T> {
         return new Result<>(ResponseCode.SUCCESS.getCode(), msg, data);
     }
 
+
     //使用静态方法开放
     //成功响应创建-------------------------------------------------------以下
     /**
@@ -183,6 +184,19 @@ public class Result<T> {
      */
     public static <T> Result<T> createByErrorMessage(String errorMessage) {
         return new Result<>(ResponseCode.ERROR.getCode(), errorMessage);
+    }
+
+    /**
+     * 包含响应码和提示信息
+     */
+    public static <T> Result<T> createByVerifyInvalidMessage(String message) {
+        return new Result<>(ResponseCode.VERIFY_CODE_INVALID.getCode(), message);
+    }
+    /**
+     * 包含响应码和提示信息
+     */
+    public static <T> Result<T> createByVerifyErrorMessage(String message) {
+        return new Result<>(ResponseCode.VERIFY_CODE_ERROR.getCode(), message);
     }
 
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common/head :: head-fragment"></head>
+<body>
+<div id="ConfirmHtml">
+    <header th:include="common/header :: header-fragment"></header>
+    <div class="content" style="height: 400px;text-align: center;">
+        <h1 th:text="${msg}" style="text-align: center;padding-top: 50px;"></h1>
+        <a th:href="${link}" th:text="${label}" style="font-size: 20px;"></a>
+        <a th:href="${login}" th:text="${label1}" style="font-size: 20px;"></a>
+    </div>
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+<script>
+    new Vue({
+        el: '#ConfirmHtml',
+
+        data: {
+            loginVO: {
+                username: '',
+                pwd: '',
+                verifyCode: ''
+            },
+            ischecked: false,
+            errormsg: '',
+            verifyImg: '/verify/getcode'
+        },
+
+        created () {
+
+        },
+        methods: {
+            Loginsubmit:function(){
+                if(!this.ischecked){
+                    layer.alert("请勾选协议!!");
+                    return;
+                }
+                //axios在then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定
+                let that = this
+                axios.post('/user/login',this.loginVO).then(function (data) {
+                    if (data.data.status === 0) {
+                        layer.alert("登录成功!!!");
+                    } else if(data.data.status === 1){
+                        layer.alert(data.data.msg);
+                    } else if(data.data.status === 5){
+                        layer.alert(data.data.msg);
+                        that.verifyImg = "/verify/getcode?"+Math.random()
+                    } else if(data.data.status === 6){
+                        layer.alertWaitTime(data.data.msg, 3);
+                    }
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

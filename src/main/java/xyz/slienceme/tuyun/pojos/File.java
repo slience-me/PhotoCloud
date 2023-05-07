@@ -1,11 +1,16 @@
 package xyz.slienceme.tuyun.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -19,6 +24,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class File implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,5 +86,14 @@ public class File implements Serializable {
      */
     private Long createdBy;
 
-
+    public File(String fileName, String fileMdName, String fileType, String filePath, String fileUrl, String fileSize, String fileDescribe, Long createdBy) {
+        this.fileName = fileName;
+        this.fileMdName = fileMdName;
+        this.fileType = fileType;
+        this.filePath = filePath;
+        this.fileUrl = fileUrl;
+        this.fileSize = fileSize;
+        this.fileDescribe = fileDescribe;
+        this.createdBy = createdBy;
+    }
 }

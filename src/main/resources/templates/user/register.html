@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 注册</title>
+</head>
+<body>
+<div id="LoginHtml">
+    <header th:include="common/header :: header-fragment"></header>
+    <div class="content">
+        <div class="main">
+            <div class="reg-logo">
+                <form class="zcform">
+                    <p class="clearfix">
+                        <label class="one" for="agent1">账号：</label>
+                        <input id="agent1" type="text" class="required" v-model="registerVO.username" placeholder="请输入您的账号"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="password">登录密码：</label>
+                        <input id="password" type="password"
+                               class="{required:true,rangelength:[8,20],}" v-model="registerVO.password" placeholder="请输入密码"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="confirm_password">确认密码：</label>
+                        <input id="confirm_password"  type="password"
+                               class="{required:true,equalTo:'#password'}" v-model="passwordAgain" placeholder="请再次输入密码"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="email">邮箱：</label>
+                        <input id="email" type="text" class="required" v-model="registerVO.email" placeholder="请输入您的邮箱"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="agent">昵称：</label>
+                        <input id="agent" type="text" maxlength="10" class="required" v-model="registerVO.name" placeholder="请输入您的昵称"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="verifycode">验证码：</label>
+                        <input id="verifycode" type="text" class="required" v-model="registerVO.verifyCode" placeholder="请输入验证码"/>
+                        <img :src="verifyImg" alt="" onclick="this.src=this.src+'?'+Math.random()" class="layadmin-user-login-codeimg" id="code_onclick">
+                    </p>
+                    <p class="clearfix agreement">
+                        <input type="checkbox" v-model="ischecked"/>
+                        <b class="left">已阅读并同意<a th:href="@{/user/agreement.html}" target="_blank" >《用户协议》</a></b>
+                    </p>
+                    <p class="clearfix"><input class="submit" type="button" value="立即注册" @click="Registersubmit" /></p>
+                </form>
+                <div class="reg-logo-right">
+                    <h3>如果您已有账号，请</h3>
+                    <a th:href="@{/user/login.html}" class="logo-a">立即登录</a>
+                </div>
+                <div class="clears"></div>
+            </div>
+        </div>
+    </div>
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+<script>
+    new Vue({
+        el: '#LoginHtml',
+
+        data: {
+            registerVO: {
+                username: '',
+                password: '',
+                name: '',
+                email: '',
+                verifyCode: ''
+            },
+            passwordAgain: '',
+            ischecked: false,
+            verifyImg: '/verify/getcode'
+        },
+
+        created () {
+
+        },
+
+        methods: {
+            alertTime:function (msg, seconds){
+                layer.alert(msg, {
+                    time: seconds * 1000, success: function (layero, index) {
+                        let timeNum = this.time / 1000, setText = function (start) {
+                            layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                        };
+                        setText(!0);
+                        this.timer = setInterval(setText, 1000);
+                        if (timeNum <= 0) clearInterval(this.timer);
+                    }, end: function () {
+                        clearInterval(this.timer);
+                    }
+                });
+            },
+            Registersubmit:function(){
+                if(!this.ischecked){
+                    layer.alert("请勾选协议!!");
+                    return;
+                }
+                if(this.registerVO.password!==this.passwordAgain){
+                    layer.alert("两次输入密码不一致!!");
+                    return;
+                }
+                let that = this
+                axios.post('/user/register',this.registerVO).then(function (data) {
+                    if (data.data.status === 0) {
+                        that.alertTime("注册成功!!!请前往邮箱及时激活!激活后请登录!", 5);
+                        //location.href='/user/login.html';
+                    } else if(data.data.status === 1){
+                        layer.alert(data.data.msg);
+                    } else if(data.data.status === 5){
+                        layer.alert(data.data.msg);
+                        that.verifyImg = "/verify/getcode?"+Math.random()
+                    } else if(data.data.status === 6){
+                        that.alertTime(data.data.msg, 3);
+                    }
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

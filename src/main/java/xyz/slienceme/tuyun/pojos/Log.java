@@ -1,11 +1,16 @@
 package xyz.slienceme.tuyun.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -19,6 +24,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,7 +69,13 @@ public class Log implements Serializable {
     /**
      * 创建时间
      */
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
-
+    public Log(Long userId, String name, String operateIp, String operateDevice, String operateContent) {
+        this.userId = userId;
+        this.name = name;
+        this.operateIp = operateIp;
+        this.operateDevice = operateDevice;
+        this.operateContent = operateContent;
+    }
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="pagination-private">
+    <div class="pagination-main">
+        <input type="hidden" name="pageSize" id="pageSize" th:value="${page.pageSize}"/>
+        <input type="hidden" name="pageNum" id="pageNum" th:value="${page.pageNum}"/>
+        <div class="pagination-main-left">
+            <div>
+                当前第<span th:text="${page.pageNum}"></span>页/共<span
+                    th:text="${page.pages}"></span>页&nbsp;&nbsp;共<span
+                    id="pageTotal" th:text="${page.total}"></span>条记录&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="pagination-main-right">
+            <ul class="pagination">
+                <li th:if="${!page.isFirstPage}"><a
+                        th:href="@{'/private.html?p=1'}">首页</a></li>
+                <li th:if="${page.isFirstPage}"><a th:href="@{'/private.html?p=1'}">首页</a></li>
+
+                <li th:if="${!page.isFirstPage}">
+                    <a th:href="@{'/private.html?p='+ ${page.prePage}}">上一页</a>
+                </li>
+                <li class="pagination-disabled" th:if="${page.isFirstPage}"><a
+                        href="javascript:">上一页</a></li>
+                <li th:each="i : ${page.navigatepageNums}"
+                    th:class="${i == page.pageNum } ? 'paginate_button-active' : 'paginate_button'">
+                    <a th:href="@{'/private.html?p='+${i}}"><span
+                            th:text="${i}"></span></a>
+                </li>
+                <li th:if="${!page.isLastPage}">
+                    <a th:href="@{'/private.html?p='+${page.nextPage}}">下一页</a>
+                </li>
+                <li class="pagination-disabled" th:if="${page.isLastPage}"><a href="javascript:">下一页</a>
+                </li>
+                <li th:if="${!page.isLastPage}"><a
+                        th:href="@{'/private.html?p=' +${page.pages}}">尾页</a>
+                </li>
+                <li class="pagination-disabled" th:if="${page.isLastPage}"><a href="javascript:">尾页</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

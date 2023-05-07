@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 管理员登录</title>
+</head>
+<body>
+<div id="LoginHtml">
+    <header th:include="common/header-admin :: header-admin-fragment"></header>
+    <div class="content">
+        <div class="main">
+            <div class="reg-logo">
+                <form id="signupForm" class="zcform">
+                    <p class="clearfix">
+                        <label class="one" for="agent">用户名：</label>
+                        <input id="agent" type="text" class="required" v-model="loginVO.username" placeholder="请输入您的用户名"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="password">登录密码：</label>
+                        <input id="password" type="password"
+                               class="required" v-model="loginVO.pwd" placeholder="请输入密码"/>
+                    </p>
+                    <p class="clearfix">
+                        <label class="one" for="verifycode">验证码：</label>
+                        <input id="verifycode" type="text" class="required" v-model="loginVO.verifyCode" placeholder="请输入验证码"/>
+                        <img :src="verifyImg" alt="" onclick="this.src=this.src+'?'+Math.random()" class="layadmin-user-login-codeimg" id="code_onclick">
+                    </p>
+                    <p class="clearfix agreement">
+                        <input type="checkbox" v-model="ischecked"/>
+                        <b class="left">已阅读并同意<a th:href="@{/user/agreement.html}" target="_blank">《用户协议》</a></b>
+                    </p>
+                    <p class="clearfix">
+                        <input class="submit" type="button" value="立即登录" @click="Loginsubmit"/></p>
+                </form>
+                <div class="clears"></div>
+            </div><!--reg-logo/-->
+        </div><!--main/-->
+    </div><!--content/-->
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+<script>
+    new Vue({
+        el: '#LoginHtml',
+
+        data: {
+            loginVO: {
+                username: '',
+                pwd: '',
+                verifyCode: ''
+            },
+            ischecked: false,
+            errormsg: '',
+            verifyImg: '/verify/getcode'
+        },
+
+        created () {
+
+        },
+        methods: {
+            alertTime:function (msg, seconds){
+                layer.alert(msg, {
+                    time: seconds * 1000, success: function (layero, index) {
+                        let timeNum = this.time / 1000, setText = function (start) {
+                            layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                        };
+                        setText(!0);
+                        this.timer = setInterval(setText, 1000);
+                        if (timeNum <= 0) clearInterval(this.timer);
+                    }, end: function () {
+                        clearInterval(this.timer);
+                    }
+                });
+            },
+            Loginsubmit:function(){
+                if(!this.ischecked){
+                    layer.alert("请勾选协议!!");
+                    return;
+                }
+                //axios在then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定
+                let that = this
+                axios.post('/user/login',this.loginVO).then(function (res) {
+                    let data = res.data
+                    if (data.status === 0) {
+                        that.alertTime("登录成功!!!", 5);
+                        localStorage.setItem("x-access-token", data.data['x-access-token'])
+                        localStorage.setItem("IP", data.data['IP'])
+                        localStorage.setItem("name", data.data.userInfo['name'])
+                        localStorage.setItem("device", data.data['deviceUserAgent'])
+                        location.href='/ad/ul'
+                    } else if(data.status === 1){
+                        layer.alert(data.msg);
+                    } else if(data.status === 5){
+                        layer.alert(data.msg);
+                        that.verifyImg = "/verify/getcode?"+Math.random()
+                    } else if(data.status === 6){
+                        that.alertTime(data.msg, 3);
+                    }
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

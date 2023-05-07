@@ -1,7 +1,9 @@
+custom:
+  system: windows
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///db_photocloud?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/db_photocloud?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true&autoReconnect=true
     username: root
     password: xian123
     hikari:
@@ -17,4 +19,4 @@ spring:
     activate:
       on-profile: dev
   path:
-    url: http://127.0.0.1:8081
+    url: http://127.0.0.1:7080

@@ -1,0 +1,147 @@
+.reg-logo {
+    width: 800px;
+    margin: 20px auto;
+    min-height: 400px;
+    padding: 20px 0 0 0;
+}
+
+#telphone, #password, #confirm_password, .submit, #agent, #agent1, #email {
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 46px;
+    text-indent: 10px;
+}
+
+#verifycode {
+    border: 1px solid #ccc;
+    width: 150px;
+    height: 46px;
+    text-indent: 10px;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    font-size: 0;
+    overflow: hidden;
+    height: 0;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix .layadmin-user-login-codeimg {
+    margin-left: 10px;
+    height: 50px;
+    width: 130px;
+    cursor: pointer;
+}
+
+
+.zcform {
+    width: 440px;
+    float: left;
+    border-right: #ddd 1px solid;
+    font-size: 14px;
+    min-height: 200px;
+}
+
+.zcform p {
+    margin-bottom: 10px;
+}
+
+.zcform a {
+    color: #ff7702;
+}
+
+.zcform p.last {
+    margin-left: 310px;
+    font-size: 16px;
+}
+
+.zcform p.last input {
+    cursor: pointer;
+}
+
+.zcform label {
+    display: block;
+    float: left;
+    height: 48px;
+    line-height: 48px;
+    color: #d87843;
+    text-indent: 10px;
+}
+
+.zcform label.one {
+    width: 90px;
+    height: 48px;
+    text-align: right;
+    color: #000;
+}
+
+.zcform input {
+    float: left;
+    font-size: 16px;
+    font-family: "微软雅黑";
+    color: #666;
+}
+
+.zcform .submit {
+    margin-left: 90px;
+    background: #d87843;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.agreement {
+    margin-left: 90px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.agreement input {
+    display: block;
+    line-height: 30px;
+    height: 12px;
+    margin: 8px 8px 0 5px;
+    border: none;
+    width: 12px;
+}
+
+.reg-logo-right {
+    float: left;
+    width: 300px;
+    margin: 0 0 0 40px;
+}
+
+.reg-logo-right h3 {
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.logo-a {
+    display: block;
+    width: 120px;
+    height: 35px;
+    border-radius: 5px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 16px;
+    background: #f1f1f1;
+    border: #ddd 1px solid;
+    margin: 15px 0 0 0;
+}
+
+.logo-a:hover {
+    background: #d87843;
+    color: #fff;
+    border: #d87843 1px solid;
+}

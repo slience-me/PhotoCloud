@@ -1,0 +1,170 @@
+.top-div-upload {
+    height: 20px;
+}
+
+.bottom-div-upload {
+    height: 210px;
+    margin-top: 100px;
+}
+
+
+.a-upload {
+    padding: 10px 4px 10px;
+    height: 26px;
+    width: 150px;
+    font-size: 15px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #ffffff;
+    background: #d87843;
+    border-color: #d87843;
+    /*color: #888;*/
+    /*background: #fafafa;*/
+    /*border: 1px solid #ddd;*/
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    text-decoration: none;
+    *zoom: 1
+}
+
+.a-upload input {
+    position: absolute;
+    height: 50px;
+    font-size: 10px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+
+.a-upload:hover {
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none
+}
+
+.fileNumText {
+    text-align: center;
+    height: 20px;
+    color: #d87843;
+    font-size: 15px;
+    background-color: white;
+    opacity: 0.8;
+}
+
+.div-upload {
+    text-align: center;
+    height: auto;
+}
+
+.show-image-list {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 100%;
+    min-height: 150px;
+    text-align: center;
+}
+
+.show-image-list dl {
+    width: 100%;
+    text-align: center;
+}
+
+.show-image-list dt {
+    float: left;
+    /*width: 24%;*/
+    margin-left: 1px;
+    height: 130px;
+}
+
+.show-image-list dt a b {
+    display: none;
+}
+
+.show-image-list dt:hover > a b{
+    display: block;
+}
+
+.show-image-list dt img{
+    /*width: 360px;*/
+    /*height: 200px;*/
+    border-radius: 5px;
+}
+
+.show-image-list dt b{
+    text-align: center;
+    height: 20px;
+    color: #d87843;
+    font-size: smaller;
+    background-color: white;
+    opacity: 0.8;
+}
+
+.show-image-list dd {
+    float: left;
+    /* width: 380px;
+    margin-left: 10px; */
+    padding: 0 0 0 0;
+}
+
+/*---------------------*/
+.show-file-list {
+    margin: 0 auto;
+    width:600px;
+    height:auto;
+    padding:50px;
+    text-align: center;
+}
+
+.show-file-list .show-file-list-show {
+    text-align: left;
+    width:90%;
+    height :90%;
+    padding: 5%;
+}
+
+
+.posirelative {
+    position: relative;
+}
+.select-out-div {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+select.m-wrap {
+
+    background-color: #ffffff;
+    background-image: none !important;
+    filter: none !important;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    height: 25px !important;
+    line-height: 25px;
+}
+.select-hide-span {
+    height: 25px;
+    position: absolute;
+    top: 0;
+    border-right: 1px solid #e5e5e5;
+    right: 0;
+    width: 20px!important;
+    z-index: 999;
+}
+.select-show-b {
+    border-color: #888 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    margin-left: -4px;
+    margin-top: 10px;
+    position: absolute;
+}

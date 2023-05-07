@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 图片管理</title>
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
+</head>
+<body>
+<div style="text-align: center;" class="upload-div" id="uploadMain">
+    <header th:include="common/header-admin :: header-admin-fragment"></header>
+    <div class="top-div-upload"></div>
+    <div class="container">
+        <h1>文件列表</h1>
+        <ul class="file-list">
+            <li th:each="item:${page.list}">
+                <img class="small-img" th:src="${item.filePath}">
+                <span class="file-name" th:text="${item.fileName}">暂无</span>
+                <span class="file-size" th:text="${item.fileSize}">暂无</span>
+                <span class="file-size" th:text="${item.createdTime}">暂无</span>
+                <div class="file-actions">
+                    <a th:attr="sc=${item.id}" th:onclick="'delFile('+${item.id}+')'" class="download-btn-delete">删除</a>
+                    <a th:attr="sc=${item.id}" th:onclick="'downloadFile('+${item.id}+')'" class="download-btn">下载</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="clears"></div>
+    <div class="row" th:include="admin/pagination-image :: pagination-image"></div>
+    <div class="bottom-div-upload"></div>
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+</body>
+<script th:src="@{/static/js/vue.js}"></script>
+<script>
+    function alertTime (msg, seconds){
+        layer.alert(msg, {
+            time: seconds * 1000, success: function (layero, index) {
+                let timeNum = this.time / 1000, setText = function (start) {
+                    layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                };
+                setText(!0);
+                this.timer = setInterval(setText, 1000);
+                if (timeNum <= 0) clearInterval(this.timer);
+            }, end: function () {
+                clearInterval(this.timer);
+            }
+        });
+    }
+    function delFile (id) {
+        console.log(id);
+        let url = '/file?id=' + id
+        let config = {
+            headers: {
+                'x-access-token': localStorage.getItem('x-access-token')
+            }
+        }
+        let msg = "确定该操作吗？";
+        layer.confirm(msg,function(){
+            opt.load();
+            axios.delete(url, config).then(function (result) {
+                let temp = result.data;
+                if (temp.status === 0){
+                    alertTime(temp.msg, 5);
+                    location.href = '/ad/il'
+                } else {
+                    alertTime(temp.msg, 5);
+                }
+            })
+        });
+    }
+    function downloadFile (id) {
+        let url = '/download?id=' + id
+        window.open(url)
+    }
+</script>
+<script>
+    new Vue({
+        el: '#uploadMain',
+        data: {
+            multipartFiles: '',
+            fileLength : null,
+            files: [],
+            showFlag: false,
+            UploadType: 1
+        },
+
+        created () {
+        },
+
+        methods: {
+            alertTime:function (msg, seconds){
+                layer.alert(msg, {
+                    time: seconds * 1000, success: function (layero, index) {
+                        let timeNum = this.time / 1000, setText = function (start) {
+                            layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                        };
+                        setText(!0);
+                        this.timer = setInterval(setText, 1000);
+                        if (timeNum <= 0) clearInterval(this.timer);
+                    }, end: function () {
+                        clearInterval(this.timer);
+                    }
+                });
+            },
+            fileChange:function (data){
+                this.multipartFiles = data.target.files
+                this.fileLength = data.target.files.length
+            },
+            submitFiles:function (){
+                let files = this.multipartFiles;
+                let formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('multipartFiles', files[i]);
+                }
+                layer.alert("正在上传中!!请稍后!!");
+                let that = this;
+                let url = '/upload/file'
+                axios.post(url,formData,
+                    {
+                        headers : {
+                            'x-access-token': localStorage.getItem('x-access-token')
+                    }
+                }).then(function (result) {
+                    that.showFlag = true;
+                    let temp = result.data;
+                    if (temp.status === 0){
+                        that.files = temp.data;
+                        that.alertTime("上传成功!!!", 5);
+                    } else {
+                        that.alertTime(temp.msg, 5);
+                        //that.alertTime("上传失败!!!", 5);
+                    }
+                });
+            }
+        }
+    })
+</script>
+
+</html>

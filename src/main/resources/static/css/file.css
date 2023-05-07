@@ -1,0 +1,72 @@
+.container {
+    max-width: 1000px;
+    margin: 100px auto;
+}
+
+.file-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.file-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+    transition: background-color .3s ease-in-out;
+}
+
+.file-list li:hover {
+    background-color: #fafafa;
+}
+
+.small-img {
+    width: 60px;
+    height: 40px;
+}
+
+.file-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.file-size {
+    color: #999;
+    font-size: 14px;
+}
+
+.file-actions {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.download-btn-delete {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #A30212;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color .3s ease-in-out;
+}
+
+.download-btn {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color .3s ease-in-out;
+}
+
+.download-btn:hover {
+    background-color: #2980b9;
+}

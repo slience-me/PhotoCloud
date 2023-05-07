@@ -1,0 +1,46 @@
+body, html {width: 100%;height: auto;margin: 0;padding: 0;font-size: 14px;padding-bottom: 15px;background: #fff;box-sizing: border-box;}
+        body{color:#000;background:#fff;font-size:14px;line-height:166.6%;text-align:center;}
+        body,input,select,button{font-family:"PingFangSC-Regular","Microsoft YaHei", "微软雅黑", verdana, sans-serif, Simsun, STXihei;zoom:1;}
+        h1,h2,h3,select,input,button{font-size:100%}
+        body,h1,h2,h3,ul,li,form,p,img{margin:0;padding:0;border:0}
+        input,button,select,img{margin:0;line-height:normal}
+        select{padding:1px}
+        ul{list-style:none}
+        select,input,button,button img,label{vertical-align:middle}
+        header,footer,section,aside,nav,hgroup,figure,figcaption{display:block;margin:0;padding:0;border:none}
+        a, a:link {color: #4472C4;text-decoration: none;}
+        body {padding: 40px;}
+        .g-body {
+            max-width: 1200px;
+            margin: 0 auto;
+            word-break: break-all;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        h2 {
+            line-height: 48px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .g-content {
+            line-height: 30px;
+            padding-top: 20px;
+        }
+        .g-right-text {
+            text-align: right;
+
+        }
+        .g-normal-text {
+            text-align: left;
+            text-indent: 21pt;
+            background: white;
+        }
+        .g-hd {
+            margin-top: 20px;
+            font-size: 16px;
+            text-indent: 0;
+        }
+        .g-hd_0 {
+            font-size: 16px;
+        }

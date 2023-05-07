@@ -1,11 +1,19 @@
 package xyz.slienceme.tuyun.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -19,6 +27,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,5 +89,13 @@ public class User implements Serializable {
      */
     private String createdBy;
 
-
+    public User(String username, String password, String name, Long roleId, String email, Integer type, String createdBy) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.roleId = roleId;
+        this.email = email;
+        this.type = type;
+        this.createdBy = createdBy;
+    }
 }

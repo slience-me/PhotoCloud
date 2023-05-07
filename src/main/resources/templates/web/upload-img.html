@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 上传图片</title>
+    <link rel="stylesheet" th:href="@{/static/css/upload.css}">
+</head>
+<body>
+<div style="text-align: center;" class="upload-div" id="uploadMain">
+    <header th:include="common/header :: header-fragment"></header>
+    <div class="top-div-upload"></div>
+    <div class="posirelative select-out-div">
+        <label>选择分享类型:</label>
+        <select class="m-wrap" style="width: 180px; padding: 2px 0;" v-model="UploadType">
+            <option value="1">共享(支持多图片上传)</option>
+            <option value="2">私有(支持多图片上传)</option>
+        </select>
+        <span class="select-hide-span" ><b class="select-show-b"  ></b></span>
+    </div>
+    <div class="div-upload">
+        <div>
+            <a href="javascript:;" class="a-upload">
+                <input type="file" multiple name="multipartFiles" @change="fileChange" >选择图片
+            </a>
+            <a href="javascript:;" class="a-upload" @click="submitFiles" >
+                <input type="button">提交
+            </a>
+        </div>
+        <div class="fileNumText">
+            <b>选择了{{ fileLength>0 ? fileLength : 0 }}个图片</b>
+        </div>
+    </div>
+    <div class="show-image-list">
+        <dl>
+            <dt v-for="(item, index) in fileUrls" :key="'item:'+index">
+                <a :href="'detail.html?imgUrl='+ item.url +'&fileName='+ item.originName" :title="item.originName">
+                    <img :src="item.urlZip" :alt="item.originName"/>
+                    <b>{{ item.originName }}</b>
+                    <b>{{ item.size }}</b>
+                </a>
+            </dt>
+        </dl>
+    </div>
+    <div class="bottom-div-upload"></div>
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+</body>
+<script th:src="@{/static/js/vue.js}"></script>
+<script>
+    new Vue({
+        el: '#uploadMain',
+        data: {
+            multipartFiles: '',
+            fileLength : null,
+            fileUrls: [],
+            showFlag: false,
+            UploadType: 1
+        },
+
+        created () {
+        },
+
+        methods: {
+            alertTime:function (msg, seconds){
+                layer.alert(msg, {
+                    time: seconds * 1000, success: function (layero, index) {
+                        let timeNum = this.time / 1000, setText = function (start) {
+                            layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                        };
+                        setText(!0);
+                        this.timer = setInterval(setText, 1000);
+                        if (timeNum <= 0) clearInterval(this.timer);
+                    }, end: function () {
+                        clearInterval(this.timer);
+                    }
+                });
+            },
+            fileChange:function (data){
+                this.multipartFiles = data.target.files
+                this.fileLength = data.target.files.length
+            },
+            submitFiles:function (){
+                let files = this.multipartFiles;
+                let formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('multipartFiles', files[i]);
+                }
+                layer.alert("正在上传中!!请稍后!!");
+                let that = this;
+                let url = '/upload/img/' + that.UploadType
+                axios.post(url,formData,
+                    {
+                        headers : {
+                            'x-access-token': localStorage.getItem('x-access-token')
+                    }
+                }).then(function (result) {
+                    that.showFlag = true;
+                    let temp = result.data;
+                    if (temp.status === 0){
+                        that.fileUrls = temp.data;
+                        that.alertTime("上传成功!!!", 5);
+                    } else {
+                        that.alertTime(temp.msg, 5);
+                        //that.alertTime("上传失败!!!", 5);
+                    }
+                });
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 图片管理</title>
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
+</head>
+<body>
+<div style="text-align: center;" class="upload-div" id="uploadMain">
+    <header th:include="common/header :: header-fragment"></header>
+    <div class="top-div-upload"></div>
+    <div class="container" style="height: 300px;">
+        <h3>您未登录 或您未上传图片</h3>
+    </div>
+    <div class="clears"></div>
+    <div class="bottom-div-upload"></div>
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+</body>
+<script th:src="@{/static/js/vue.js}"></script>
+
+</html>

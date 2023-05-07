@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="Author" contect="http://blog.csdn.net/slience_me">
+</head>
+<body>
+<div th:fragment="footer-fragment">
+    <div class="footer">
+        <div class="main">
+            <div class="fl">
+                <a th:href="@{/index.html}"><strong>图云客户端5.0</strong></a>
+                <a th:href="@{/about.html}" target="_blank">关于我</a>
+<!--                <a href="contact.html">联系我们</a>-->
+<!--                <a href="follow.html">个人中心</a>-->
+            </div>
+            <div class="fr">
+                <dl>
+                    <dt><a th:href="@{/static/images/base/weixin.jpg}" target="_blank"><img th:src="@{/static/images/base/weixin.jpg}" width="76" height="76"/></a></dt>
+                    <dd>微信扫一扫<br/>加我微信</dd>
+                </dl>
+                <dl>
+                    <dt><a th:href="@{/static/images/base/csdn.jpg}" target="_blank"><img th:src="@{/static/images/base/csdn.jpg}" width="76" height="76"/></a></dt>
+                    <dd>CSDN扫一扫<br/>关注我</dd>
+                </dl>
+                <div class="clears"></div>
+            </div>
+            <div class="clears"></div>
+        </div><!--main/-->
+    </div><!--footer/-->
+    <div class="copy">Copyright@ 2021-2023 图云客户端 版权所有 冀ICP备2021000460号-1&nbsp;&nbsp;&nbsp;&nbsp;技术支持：Slience_me</div>
+    <div class="bg100"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common/head :: head-fragment"></head>
+<head>
+    <title>图云客户端 | 首页</title>
+</head>
+<body>
+<div id="list">
+    <header th:include="common/header :: header-fragment"></header>
+    <div class="content">
+        <div class="main">
+            <div class="img-list">
+                <dl>
+                    <div style="height: 20px;"></div>
+                    <dt th:if="${page}" th:each="image:${page.list}">
+                        <a th:href="'detail.html?imgUrl='+${image.fileUrl}+'&fileName='+${image.fileName}" th:title="${image.fileName}">
+                            <img th:src="${image.filePath}" th:alt="${image.fileName}"/>
+                            <b th:text="${image.fileName}">暂无名称</b>
+                            <b th:text="${image.fileDescribe == 'Image-public' ? '共享': '私有'}">暂无</b>
+                        </a>
+                    </dt>
+                </dl>
+            </div>
+            <div class="clears"></div>
+            <div class="row" th:include="common/pagination-private :: pagination-private"></div>
+        </div>
+    </div>
+
+    <footer th:include="common/footer :: footer-fragment"></footer>
+</div>
+<script>
+    new Vue({
+        el: '#list',
+        data: {
+        },
+
+        created () {
+        },
+
+        methods: {
+            fetchDictData() {
+                //axios在then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定
+                // var that = this
+                // axios.get('/dict/findListByDictCode/beijing').then(function (response) {
+                //     that.areaList = response.data.data
+                // });
+            },
+            // fetchData(pageNum = 1) {
+            //     this.page.pageNum = pageNum
+            //     if(pageNum < 1) pageNum = 1
+            //
+            //     var that = this
+            //     axios.post('/house/list/'+pageNum+'/'+this.page.pageSize, this.houseQueryVo).then(function (response) {
+            //         that.page = response.data.data
+            //     });
+            // },
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,8 +1,15 @@
 package xyz.slienceme.tuyun.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import xyz.slienceme.tuyun.pojos.File;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import xyz.slienceme.tuyun.pojos.Log;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -15,4 +22,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface FileMapper extends BaseMapper<File> {
 
+    Page<File> findPage();
+
+    List<File> selectListByXml(@Param("userId") Long userId,
+                               @Param("fileDescribe") String fileDescribe);
 }

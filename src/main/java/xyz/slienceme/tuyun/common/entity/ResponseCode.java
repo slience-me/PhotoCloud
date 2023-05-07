@@ -13,7 +13,10 @@ public enum ResponseCode {
     ERROR(1, "失败"),
     UNAUTHENTICATED(2, "您还未登录"),
     UNAUTHORISE(3,"权限不足"),
-    SERVER_ERROR(4,"抱歉，系统繁忙，请稍后重试！");
+    SERVER_ERROR(4,"抱歉，系统繁忙，请稍后重试！"),
+    VERIFY_CODE_INVALID(5, "验证码失效!"),
+
+    VERIFY_CODE_ERROR(6, "验证码错误!");
 
 
     private int code;//响应码

@@ -1,14 +1,33 @@
 server:
   port: 7080
+swagger:
+  production: true
+  basic:
+    enable: true
+    username: sbx
+    password: 123456
 spring:
   profiles:
-    active: dev
+    active: pro
+  redis:
+    database: 13
+    port: 6400
+    password: myRedis
+    connect-timeout: 5000 #3600
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 100
   servlet:
     multipart:
       # 上传文件大小设置
       enabled: true #是否启用http上传处理
-      max-request-size: 50MB #最大请求文件的大小
-      max-file-size: 50MB #设置单个文件最大长度
+      max-request-size: 100MB #最大请求文件的大小
+      max-file-size: 100MB #设置单个文件最大长度
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -17,14 +36,14 @@ spring:
   mail:
     host: smtp.qq.com
     username: slience_me@foxmail.com
-    password: iqaebvoscblmecej
-# wms-dao/target/classes/mapper/AdminRoleMapper.xml
+    password: ddmwjqzsomkzebgg
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   type-aliases-package: xyz.slienceme.pojos
   configuration:
     call-setters-on-nulls: true
     map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
 
 pagehelper:
   helperDialect: mysql

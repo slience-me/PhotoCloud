@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div th:fragment="header-admin-fragment">
+    <div class="global-header">
+        <div class="main">
+            <div class="fl">您好，欢迎来到图云客户端！</div>
+            <div class="fr">
+                <a th:href="@{/user/login.html}" id="g-h-login">登录</a> |
+                <a th:href="@{/user/register.html}" id="g-h-regist">注册</a> |
+                <a href="javascript:layer.alert('请使用Ctrl+D进行添加!');">加入收藏</a> |
+                <a href="javascript:layer.alert('不建议设为首页!');">设为首页</a> |
+                <a href="#" onclick="tuyunLogout()" id="g-h-logout">退出登录</a>
+            </div>
+            <div class="clears"></div>
+        </div>
+    </div>
+    <div class="list-nav">
+        <div class="main">
+            <div class="list"> <img th:src="@{/static/images/index/logo.ico}" alt="logo" class="index-logo"></div><!--list/-->
+            <ul class="nav">
+                <li><a th:href="@{/ad/ul}">用户管理</a></li>
+                <li><a th:href="@{/ad/il}">图片管理</a></li>
+                <div class="clears"></div>
+            </ul>
+            <ul class="nav-right">
+                <li><a href="#" id="header-user"></a></li>
+<!--                <div class="nav-right-logout" id="div-logout">-->
+<!--                    <ul>-->
+<!--                        <li onclick="tuyunLogout()">退出登录</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+            </ul>
+            <div class="clears"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

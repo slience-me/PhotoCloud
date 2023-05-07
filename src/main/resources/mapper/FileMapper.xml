@@ -4,17 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="xyz.slienceme.tuyun.pojos.File">
-        <id column="id" property="id" />
-        <result column="file_name" property="fileName" />
-        <result column="file_md_name" property="fileMdName" />
-        <result column="file_type" property="fileType" />
-        <result column="file_path" property="filePath" />
-        <result column="file_url" property="fileUrl" />
-        <result column="file_size" property="fileSize" />
-        <result column="file_describe" property="fileDescribe" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="created_time" property="createdTime" />
-        <result column="created_by" property="createdBy" />
+        <id column="id" property="id"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_md_name" property="fileMdName"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_path" property="filePath"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="file_describe" property="fileDescribe"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -22,4 +22,35 @@
         id, file_name, file_md_name, file_type, file_path, file_url, file_size, file_describe, is_deleted, created_time, created_by
     </sql>
 
+    <select id="findPage" resultType="xyz.slienceme.tuyun.pojos.File">
+        select id,
+               file_name     as                               fileName,
+               file_md_name  as                               fileMdName,
+               file_type     as                               fileType,
+               file_path     as                               filePath,
+               file_url      as                               fileUrl,
+               file_size     as                               fileSize,
+               file_describe as                               fileDescribe,
+               DATE_FORMAT(created_time, '%Y-%m-%d %H:%i:%s') createdTime,
+               created_by    as                               createdBy
+        from file
+        where is_deleted = 0 and file_describe = 'Image-public'
+        order by created_time desc
+    </select>
+
+    <select id="selectListByXml" resultType="xyz.slienceme.tuyun.pojos.File">
+        select id,
+               file_name     as                               fileName,
+               file_md_name  as                               fileMdName,
+               file_type     as                               fileType,
+               file_path     as                               filePath,
+               file_url      as                               fileUrl,
+               file_size     as                               fileSize,
+               file_describe as                               fileDescribe,
+               DATE_FORMAT(created_time, '%Y-%m-%d %H:%i:%s') createdTime,
+               created_by    as                               createdBy
+        from file
+        where is_deleted = 0 and file_describe = #{fileDescribe} and created_by = #{userId}
+        order by created_time desc
+    </select>
 </mapper>
